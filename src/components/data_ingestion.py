@@ -8,6 +8,8 @@ from sklearn.model_selection import train_test_split
 from  dataclasses import dataclass
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
+from src.components.model_trainer import ModelTrainer
+from src.components.model_trainer import ModelTrainerConfig
 
 @dataclass
 class DataIngestionConfig:
@@ -49,7 +51,10 @@ if __name__ == "__main__":
     train_data,test_data,raw_data= obj.initiate_data_ingestion()
 
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(train_data, test_data)  
+    train_arr,test_arr=data_transformation.initiate_data_transformation(train_data, test_data)  
+
+    ModelTrainer=ModelTrainer()
+    print(ModelTrainer.initiate_model_trainer(train_array=train_arr, test_array=test_arr))
 # This code is for the data ingestion component of a machine learning project.
 # It reads a dataset, splits it into training and testing sets, and saves them to specified paths.
 # The code also handles exceptions and logs the process for debugging purposes.
