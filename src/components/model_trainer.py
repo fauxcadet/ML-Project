@@ -46,13 +46,50 @@ class ModelTrainer:
                 'KNeighborsRegressor': KNeighborsRegressor(),
                 'DecisionTreeRegressor': DecisionTreeRegressor()
             }
+            params={
+                "DecisionTreeRegressor": {
+                    'criterion':['squared_error','friedman_mse','absolute_error','poisson']     
+                                  },
+                "RandomForestRegressor": {
+                    'n_estimators':[8,16,31,64,128,256],
+                },
+                "GradientBoostingRegressor": {
+                    'n_estimators':[8,16,31,64,128,256],
+                    'learning_rate':[.1,.01,.05,.001],
+                    'subsample':[0.6,0.7,0.75,0.8,0.85,0.9],
+                    'max_depth':[3,5,7,9]
+                },
+                "LinearRegression": {
+                },
+                "KNeighborsRegressor": {
+                    'n_neighbors':[3,5,7,9,11,13],
+                  #  'weights':['uniform','distance'],
+                   # 'algorithm':['auto','ball_tree','kd_tree','brute']
+                },
+                "XGBRegressor": {
+                    'learning_rate':[0.01,0.05,0.1,0.2],
+                    'n_estimators':[8,16,31,64,128,256],
+                },
+                "CatBoostRegressor": {
+                    'learning_rate':[0.01,0.05,0.1,0.2],
+                    #'n_estimators':[8,16,31,64,128,256],
+                    'depth':[3,5,7,9,6,8,10],
+                    'iterations':[30,50,100,200,300,400,500],
+                },
+                "AdaBoostRegressor": {
+                    'n_estimators':[8,16,31,64,128,256],
+                    'learning_rate':[0.001,0.01,0.05,0.1,0.2]
+                }
+                
+            }
 
             model_report:dict=evaluate_model(
                 X_train=X_train,
                 y_train=y_train,
                 X_test=X_test,
                 y_test=y_test,
-                models=models
+                models=models,
+                param=params 
             )
             logging.info("Evaluating models")
             ## to get best model score from model report
